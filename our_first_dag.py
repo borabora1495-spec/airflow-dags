@@ -82,8 +82,17 @@ def transform_market_data(raw_file: str):
     tags=["airflow3", "etl"],
 )
 def daily_etl_pipeline():
-    raw = extract_market_data()
-    transformed = transform_market_data(raw)
+    @task
+    def extract_market_data(market: str):
+        ...
+    @task
+    def transform_market_data(raw_file: str):
+      ...
 
+    # Define markets to process dynamically
+    markets = ["us", "europe", "asia", "africa"]
 
+    # Dynamically create parallel tasks
+    raw_files = extract_market_data.expand(market=markets)
+    transformed_files = transform_market_data.expand(raw_file=raw_files)
 dag = daily_etl_pipeline()
