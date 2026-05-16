@@ -74,10 +74,10 @@ def daily_etl_pipeline():
 
         db_config = {
             "host": "host.docker.internal",  # enables Docker-to-local communication
-            "user": "airflow",
-            "password": "airflow",
+            "user": "root",
+            "password": "D33rs./..",
             "database": "airflow_db",
-            "port": 3306
+            "port": 1603
         }
 
         df = pd.read_csv(transformed_file)
