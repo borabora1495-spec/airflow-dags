@@ -125,6 +125,6 @@ def daily_etl_pipeline():
     raw_files = extract_market_data.expand(market=markets)
     transformed_files = transform_market_data.expand(raw_file=raw_files)
     load_to_mysql.expand(transformed_file=transformed_files)
-
+    load_to_mysql.expand(transformed_file=transformed_files) >> preview_mysql
 dag = daily_etl_pipeline()
 
